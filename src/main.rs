@@ -77,8 +77,10 @@ fn cat_fax_term(targs: TerminalArgs, fact: &str, num: usize) {
 
     if targs.color {
         // settings for the lolcat code
+        // todo(eric): why is the seed not working??
+        let seed = rand::thread_rng().gen_range(0.0..10.0);
         let mut lol_ctrl = Control {
-            seed: 0.0,
+            seed,
             spread: 3.0,
             frequency: 0.1,
             background_mode: false,
