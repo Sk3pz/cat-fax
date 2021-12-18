@@ -34,6 +34,15 @@ fn parse_args(args: Vec<String>) -> Option<TerminalArgs> {
                 targs.raw = true;
                 targs.color = false; // raw mode is always colorless
             }
+            "-h" | "--help" | "-?" => {
+                println!("+ Cat-Fax Help:\n\
+                |  `-h` or `--help`:   displays this message\n\
+                |  `-w` or `--window`: displays the cat fact in a custom window\n\
+                |  `-c` or `--color`:  displays the cat fact in rainbow\n\
+                |  `-r` or `--raw`:    displays the cat fact raw, no special formatting\n\
+                +");
+                std::process::exit(0);
+            }
             _ => {}
         }
     }
