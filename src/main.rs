@@ -102,7 +102,7 @@ fn main() {
     let fax = include_str!("../assets/fax.txt").split("\n").collect::<Vec<_>>();
 
     // randomly select a cat fax
-    let fax_index = rand::thread_rng().gen_range(0, fax.len());
+    let fax_index = rand::thread_rng().gen_range(0..fax.len());
     let fact = *fax.get(fax_index).unwrap();
     drop(fax);
 

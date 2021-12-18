@@ -121,7 +121,7 @@ pub fn print_chars_lol<I: Iterator<Item=char>>(mut iter: I, c: &mut Control, con
                 }
                 println!();
                 if c.dialup_mode {
-                    let stall = Duration::from_millis(rand::thread_rng().gen_range(30, 700));
+                    let stall = Duration::from_millis(rand::thread_rng().gen_range(30..700));
                     sleep(stall);
                 }
 
