@@ -3,7 +3,7 @@ mod window;
 
 use rand::Rng;
 use crate::window::cat_fax_window;
-use crate::lol::{Control, print_chars_lol};
+use crate::lol::{Control, print_lines_lol};
 
 #[derive(Debug, Clone)]
 struct TerminalArgs {
@@ -77,18 +77,18 @@ fn cat_fax_term(targs: TerminalArgs, fact: &str, num: usize) {
 
     if targs.color {
         // settings for the lolcat code
-        // todo(eric): why is the seed not working??
-        let seed = rand::thread_rng().gen_range(0.0..10.0);
+        let seed = rand::thread_rng().gen_range(0.0..255.0);
+        println!("seed: {}", seed);
         let mut lol_ctrl = Control {
             seed,
             spread: 3.0,
             frequency: 0.1,
             background_mode: false,
             dialup_mode: false,
-            print_color: targs.color
+            print_color: true
         };
         // print the fact in color
-        print_chars_lol(ascii.chars(), &mut lol_ctrl, false);
+        print_lines_lol(ascii.split("\n"), &mut lol_ctrl);
     } else {
         // print the fact in plane ascii
         println!("{}", ascii);
