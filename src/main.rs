@@ -13,7 +13,7 @@ struct TerminalArgs {
 
 /// parse the command line arguments into a struct
 fn parse_args(args: Vec<String>) -> Option<TerminalArgs> {
-    if args.contains(&"-w".to_string()) {
+    if args.contains(&"-w".to_string()) || args.contains(&"--window".to_string()) {
         return None
     }
     let mut targs = TerminalArgs {
