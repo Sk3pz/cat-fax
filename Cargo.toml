@@ -1,13 +1,12 @@
 [package]
 name = "cat-fax"
-version = "0.2.1"
+version = "0.3.0"
 edition = "2021"
 authors = ["eric (sk3pz) skepz.dev@gmail.com"]
 description = "Like Cowsay, but with factually accurate cat facts!"
 license = "MIT"
 
 [dependencies]
-better_term = "1.0.4"
 rand = "0.8.4"
 glutin = "0.28.0"
 gfx = "0.18.2"
