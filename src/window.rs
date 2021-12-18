@@ -68,7 +68,7 @@ pub fn cat_fax_window(fact: &str, num: usize) {
     // if the number string is longer than the fact string
     if num_width > (width - padding) {
         // set the padding for the fact to center the text
-        fact_padding = ((num_width as f32) - (width as f32)) / 2.0;
+        fact_padding = ((num_width as f32 + padding as f32) - (width as f32 - padding as f32)) / 2.0;
         // add padding to the number text to make sure its not pressed up against the sides
         num_padding = padding as f32 / 2.0;
         // set the window width to the required size

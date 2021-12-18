@@ -5,6 +5,9 @@ edition = "2021"
 authors = ["eric (sk3pz) skepz.dev@gmail.com"]
 description = "Like Cowsay, but with factually accurate cat facts!"
 license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/Sk3pz/cat-fax"
+repository = "https://github.com/Sk3pz/cat-fax"
 
 [dependencies]
 rand = "0.8.4"
