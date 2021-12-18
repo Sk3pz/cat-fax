@@ -1,14 +1,9 @@
 mod lol;
 mod window;
 
-use std::os;
-use better_term::rainbowify;
 use rand::Rng;
 use crate::window::cat_fax_window;
 use crate::lol::{Control, print_chars_lol};
-
-const FONT_SIZE: u32 = 16;
-const WINDOW_HEIGHT: u32 = 400;
 
 #[derive(Debug, Clone)]
 struct TerminalArgs {
@@ -18,7 +13,7 @@ struct TerminalArgs {
 
 /// parse the command line arguments into a struct
 fn parse_args(args: Vec<String>) -> Option<TerminalArgs> {
-    if !args.contains(&"-t".to_string()) {
+    if args.contains(&"-w".to_string()) {
         return None
     }
     let mut targs = TerminalArgs {
@@ -53,7 +48,6 @@ fn parse_args(args: Vec<String>) -> Option<TerminalArgs> {
                 targs.raw = true;
                 targs.color = false; // raw mode is always colorless
             }
-            "-t" => {}
             _ => {}
         }
     }
@@ -77,7 +71,7 @@ fn cat_fax_term(targs: TerminalArgs, fact: &str, num: usize) {
                 if fax_num.len() % 2 != 0 { "-" }
                 else { "" },
                 fact, "-".repeat(fact.len() + 10),
-                tline = "-".repeat((((fact.len() + 10) - fax_num.len()) / 2)),
+                tline = "-".repeat(((fact.len() + 10) - fax_num.len()) / 2),
                 spaces = " ".repeat(fact.len() + 3))};
 
     if targs.color {

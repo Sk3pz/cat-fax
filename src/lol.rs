@@ -25,14 +25,15 @@ pub struct Control {
 // This used to have more of a reason to exist, however now all its functionality is in
 // print_chars_lol(). It takes in an iterator over lines and prints them all.
 // At the end, it resets the foreground color
-pub fn print_lines_lol<I: Iterator<Item=S>, S: AsRef<str>>(lines: I, c: &mut Control) {
-    for line in lines {
-        print_chars_lol(line.as_ref().chars().chain(Some('\n')), c, false);
-    }
-    if c.print_color {
-        print!("\x1b[39m");
-    }
-}
+// unused
+// pub fn print_lines_lol<I: Iterator<Item=S>, S: AsRef<str>>(lines: I, c: &mut Control) {
+//     for line in lines {
+//         print_chars_lol(line.as_ref().chars().chain(Some('\n')), c, false);
+//     }
+//     if c.print_color {
+//         print!("\x1b[39m");
+//     }
+// }
 
 // Takes in s an iterator over characters
 // duplicates escape sequences, otherwise prints printable characters with colored_print

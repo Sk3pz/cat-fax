@@ -8,7 +8,7 @@ use glutin::{
     event_loop::ControlFlow,
 };
 use old_school_gfx_glutin_ext::*;
-use std::{env, error::Error};
+use std::env;
 use glyph_brush::ab_glyph::{FontRef, point, PxScale, Rect};
 use glyph_brush::{Extra, FontId};
 
@@ -50,7 +50,7 @@ pub fn cat_fax_window(fact: &str, num: usize) {
         width += advance;
     }
     // the height of each character
-    let font_height = (scaled_font.ascent() + scaled_font.descent());
+    let font_height = scaled_font.ascent() + scaled_font.descent();
 
     // the title - "Cat Fax #..."
     let num_txt = format!("Cat Fax #{}", num);
