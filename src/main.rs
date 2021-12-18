@@ -17,7 +17,7 @@ fn parse_args(args: Vec<String>) -> Option<TerminalArgs> {
         return None
     }
     let mut targs = TerminalArgs {
-        color: true,
+        color: false,
         raw: false,
     };
     for x in 0..args.len() {
