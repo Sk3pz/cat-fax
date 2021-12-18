@@ -78,7 +78,6 @@ fn cat_fax_term(targs: TerminalArgs, fact: &str, num: usize) {
     if targs.color {
         // settings for the lolcat code
         let seed = rand::thread_rng().gen_range(0.0..255.0);
-        println!("seed: {}", seed);
         let mut lol_ctrl = Control {
             seed,
             spread: 3.0,
