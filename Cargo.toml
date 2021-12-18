@@ -3,8 +3,11 @@ name = "cat-fax"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 better_term = "1.0.4"
-rand = "0.6.5"
+rand = "*"
+glutin = "*"
+gfx = "*"
+gfx_glyph = "*"
+glyph_brush = "*"
+old_school_gfx_glutin_ext = "*"
