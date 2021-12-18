@@ -1,6 +1,6 @@
 # cat-fax
 
-Similar to Cow Say, but gives interesting and factually accurate cat facts.\
+Similar to Cow Say, but gives interesting and factually accurate cat facts.
 
 ## Modes
 
@@ -19,4 +19,4 @@ Raw output:\
 ### Window Mode
 Activated with `-w`or `--window`, will display in a separate window\
 Example:\
-![Window Image](screenshots/window_example.png)\
+![Window Image](screenshots/window_example.png)
