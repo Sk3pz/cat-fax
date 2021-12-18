@@ -24,13 +24,6 @@ fn parse_args(args: Vec<String>) -> Option<TerminalArgs> {
         let s = args.get(x).unwrap();
         match s.as_str() {
             "-c" | "--color" => {
-                if x + 1 < args.len() {
-                    let next = args.get(x + 1).unwrap();
-                    if next == "false" {
-                        targs.color = false;
-                        continue;
-                    }
-                }
                 if targs.raw {
                     println!("Failed to set color mode: raw mode can not be colored!");
                     continue;
@@ -38,13 +31,6 @@ fn parse_args(args: Vec<String>) -> Option<TerminalArgs> {
                 targs.color = true;
             }
             "-r" | "--raw" => {
-                if x + 1 < args.len() {
-                    let next = args.get(x + 1).unwrap();
-                    if next == "false" {
-                        targs.raw = false;
-                        continue;
-                    }
-                }
                 targs.raw = true;
                 targs.color = false; // raw mode is always colorless
             }
