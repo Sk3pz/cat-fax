@@ -57,22 +57,22 @@ fn cat_fax_term(targs: TerminalArgs, fact: &str, num: usize) {
         format!("{}: {}", fax_num, fact)
     } else { // otherwise, format it
         let line_size = (fact.len() + 10) - fax_num.len();
-        let left_line_len = "-".repeat((fact.len() + 10) / 2 - (fax_num.len() / 2));
-        let right_line_len = "-".repeat(line_size / 2);
+        let left_line_len = "─".repeat((fact.len() + 10) / 2 - (fax_num.len() / 2));
+        let right_line_len = "─".repeat(line_size / 2);
         let mut fact_line = format!("{}{}{}",
                                     left_line_len,
                                     fax_num,
                                     right_line_len);
         if fact_line.len() < (fact.len() + 10) {
-            fact_line += "-";
+            fact_line += "─";
         }
-        format!("+{}+\n\
-    |  /\\_/\\{spaces}|\n\
-    | ( o.o ) {} |\n\
-    |  > ^ <{spaces}|\n\
-    +{}+\n\
+        format!("┌{}┐\n\
+    │  /\\_/\\{spaces}│\n\
+    │ ( o.o ) {} │\n\
+    │  > ^ <{spaces}│\n\
+    └{}┘\n\
     ", fact_line, fact,
-                "-".repeat(fact.len() + 10),
+                "─".repeat(fact.len() + 10),
                 spaces = " ".repeat(fact.len() + 3))};
 
     if targs.color {
