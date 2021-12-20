@@ -5,7 +5,7 @@ use rand::Rng;
 use crate::window::cat_fax_window;
 use crate::lol::{Control, print_lines_lol};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 struct TerminalArgs {
     color: bool,
     raw: bool,
@@ -55,15 +55,36 @@ fn cat_fax_term(targs: TerminalArgs, fact: &str, num: usize) {
     // if its raw, then just print the fact
     let ascii = if targs.raw {
         format!("{}: {}", fax_num, fact)
+    } else if fact.is_empty() {
+        format!("\
+    ┌{}┐\n\
+    │  /\\_/\\{spaces} │\n\
+    │ ( o.o )   │\n\
+    │  > ^ <{spaces} │\n\
+    └{}┘\n\
+    ", fax_num,
+                "─".repeat(11),
+                spaces = " ".repeat(fact.len() + 3))
+    } else if fax_num.len() > fact.len() + 10 {
+        format!("\
+    ┌{}┐\n\
+    │  /\\_/\\{spaces}│\n\
+    │ ( o.o ) {}{} │\n\
+    │  > ^ <{spaces}│\n\
+    └{}┘\n\
+    ", fax_num, " ".repeat(fax_num.len() - fact.len()), fact,
+                "─".repeat(fact.len() + 10),
+                spaces = " ".repeat(fact.len() + 3))
     } else { // otherwise, format it
         let line_size = (fact.len() + 10) - fax_num.len();
-        let left_line_len = "─".repeat((fact.len() + 10) / 2 - (fax_num.len() / 2));
+        let left_line_len = "─".repeat(line_size / 2);
         let right_line_len = "─".repeat(line_size / 2);
         let mut fact_line = format!("{}{}{}",
                                     left_line_len,
                                     fax_num,
                                     right_line_len);
-        if fact_line.len() < (fact.len() + 10) {
+        let fl_len = (left_line_len.len() / 3) + (left_line_len.len() / 3) + fax_num.len();
+        if fl_len < (fact.len() + 10) {
             fact_line += "─";
         }
         format!("┌{}┐\n\
@@ -91,6 +112,23 @@ fn cat_fax_term(targs: TerminalArgs, fact: &str, num: usize) {
     } else {
         // print the fact in plane ascii
         println!("{}", ascii);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::{cat_fax_term, TerminalArgs};
+
+    #[test]
+    fn term_sweep() {
+        let mut targs = TerminalArgs {
+            color: false,
+            raw: false,
+        };
+        let fax = include_str!("../assets/fax.txt").split("\n").collect::<Vec<_>>();
+        for x in 0..fax.len() {
+            cat_fax_term(targs, fax.get(x).unwrap(), x)
+        }
     }
 }
 
