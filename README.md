@@ -1,6 +1,7 @@
 # cat-fax
 
-Similar to Cow Say, but gives interesting and factually accurate cat facts.
+Similar to Cow Say, but gives interesting and factually accurate cat facts.\
+Install with `cargo install cat-fax` on any OS with rust and cargo installed
 
 ## Modes
 
