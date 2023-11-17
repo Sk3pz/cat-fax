@@ -10,5 +10,5 @@ homepage = "https://github.com/Sk3pz/cat-fax"
 repository = "https://github.com/Sk3pz/cat-fax"
 
 [dependencies]
-rand = "*"
+rand = "0.8.5"
 better_term = { version = "1.4.5", features = ["output", "fancy"] }
