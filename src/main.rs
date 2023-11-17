@@ -107,8 +107,6 @@ fn parse_args(args: Vec<String>) -> TerminalArgs {
 }
 
 fn main() {
-    println!();
-    println!();
     let arguments = std::env::args().collect::<Vec<String>>();
     let terminal_args = parse_args(arguments);
 
@@ -120,8 +118,6 @@ fn main() {
 
     if terminal_args.raw {
         println!("Cat Fax #{}: {}", fact_num + 1, fact);
-        println!();
-        println!();
         return;
     }
 
@@ -172,6 +168,4 @@ fn main() {
     }
 
     flush_styles();
-    println!();
-    println!();
 }

@@ -1,6 +1,6 @@
 [package]
 name = "cat-fax"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 authors = ["eric (sk3pz) skepz.dev@gmail.com"]
 description = "Like Cowsay, but with (mostly) factually accurate cat facts!"
