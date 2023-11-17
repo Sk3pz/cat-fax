@@ -1,18 +1,14 @@
 [package]
 name = "cat-fax"
-version = "0.5.0"
+version = "1.0.0"
 edition = "2021"
 authors = ["eric (sk3pz) skepz.dev@gmail.com"]
-description = "Like Cowsay, but with factually accurate cat facts!"
+description = "Like Cowsay, but with (mostly) factually accurate cat facts!"
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/Sk3pz/cat-fax"
 repository = "https://github.com/Sk3pz/cat-fax"
 
 [dependencies]
-rand = "0.8.4"
-glutin = "0.28.0"
-gfx = "0.18.2"
-gfx_glyph = "0.17.0"
-glyph_brush = "0.7.3"
-old_school_gfx_glutin_ext = "0.28.0"
+rand = "*"
+better_term = { version = "1.4.5", features = ["output", "fancy"] }
