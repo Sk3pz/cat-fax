@@ -2,30 +2,24 @@ use better_term::flush_styles;
 use better_term::fancy::gradient;
 use rand::{Rng, thread_rng};
 
-type GradientBound = (u8, u8, u8);
-
-const GRADIENTS: [(GradientBound, GradientBound); 5] = [
-    // default gradients
-    ((255, 0, 255), (0, 255, 255)), // magenta -> cyan
-    ((255, 0, 0), (0, 255, 0)), // red -> green
-    ((255, 0, 0), (0, 0, 255)), // red -> blue
-
-    // special gradients
-    ((49, 71, 85), (38, 160, 218)), // cyan
-    ((113, 46, 75), (218, 159, 38)), // orange
-];
-
 const FAX_INCLUDE: &str = include_str!("../assets/fax.txt");
 
 const MAX_LINE_LENGTH: usize = 30;
 
-fn print_gradient<S: Into<String>>(text: S, gradient_start: (u8, u8, u8), gradient_end: (u8, u8, u8)) {
+fn print_gradient<S: Into<String>>(text: S) {
     let text = text.into();
     // handle multiline as well
     let split = text.split('\n').collect::<Vec<&str>>();
     let length = split.iter().map(|s| s.len()).max().unwrap();
 
-    let gradient = gradient(gradient_start, gradient_end, length);
+    let rs = thread_rng().gen_range(0..255);
+    let gs = thread_rng().gen_range(0..255);
+    let bs = thread_rng().gen_range(0..255);
+
+    let re = thread_rng().gen_range(0..255);
+    let ge = thread_rng().gen_range(0..255);
+    let be = thread_rng().gen_range(0..255);
+    let gradient = gradient((rs,gs,bs), (re,ge,be), length);
 
     for (i, line) in text.lines().enumerate() {
         for (j, c) in line.chars().enumerate() {
@@ -161,8 +155,7 @@ fn main() {
     cat_box.push_str(btm_line.as_str());
 
     if terminal_args.color {
-        let gradient_bounds = GRADIENTS[thread_rng().gen_range(0..GRADIENTS.len())];
-        print_gradient(&cat_box, gradient_bounds.0, gradient_bounds.1);
+        print_gradient(&cat_box);
     } else {
         println!("{}", cat_box);
     }
