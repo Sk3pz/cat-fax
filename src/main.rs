@@ -1,4 +1,4 @@
-use better_term::flush_styles;
+use better_term::{Color, flush_styles};
 use better_term::fancy::gradient;
 use rand::{Rng, thread_rng};
 
@@ -65,15 +65,34 @@ fn word_wrap(input: &str, max_size: usize) -> Vec<String> {
 struct TerminalArgs {
     color: bool,
     raw: bool,
+    num: Option<usize>,
 }
 
 fn parse_args(args: Vec<String>) -> TerminalArgs {
     let mut terminal_args = TerminalArgs {
         color: false,
         raw: false,
+        num: None,
     };
+    let mut expect_num = false;
     for x in 0..args.len() {
         let s = args.get(x).unwrap();
+
+        if expect_num {
+            // check if s is a valid number and parse to a u16
+            match s.parse::<usize>() {
+                Ok(num) => {
+                    terminal_args.num = Some(num);
+                    expect_num = false;
+                }
+                Err(_) => {
+                    println!("Expected a number after -n or --num!");
+                    std::process::exit(1);
+                }
+            }
+            continue;
+        }
+
         match s.as_str() {
             "-c" | "--color" => {
                 if terminal_args.raw {
@@ -86,17 +105,30 @@ fn parse_args(args: Vec<String>) -> TerminalArgs {
                 terminal_args.raw = true;
                 terminal_args.color = false; // raw mode is always colorless
             }
+            "-n" | "--num" | "--number" => {
+                expect_num = true;
+            }
             "-h" | "--help" | "-?" => {
-                println!("┌ Cat-Fax Help:\n\
-                │  `-h` or `--help`:   displays this message\n\
-                │  `-c` or `--color`:  displays the cat fact in rainbow\n\
-                │  `-r` or `--raw`:    displays the cat fact raw, no special formatting\n\
-                └");
+                let version = env!("CARGO_PKG_VERSION");
+                println!("{pri}┌─ {hi}Cat-Fax Help: {pri}───  ───  ─   ──  ───  ────    ─    ──   ───  ────   ─ ──{pri}─┐\n\
+                {pri}  {sec}`-h` or `--help`    {pri}->{sec} displays this message                             {pri}│\n\
+                {pri}│ {sec}`-c` or `--color`   {pri}->{sec} displays the cat fact in a gradient\n\
+                {pri}  {sec}`-n #` or `--num #` {pri}->{sec} displays a specific cat fact                      {pri}│\n\
+                {pri}│ {sec}`-r` or `--raw`     {pri}->{sec} displays the cat fact raw, no special formatting  {pri} \n\
+                {pri}└── ──  ──  ─   ──  ───  ───    ─    ──   ──  ────   ─ ─── {thr}version {version} {pri}──┘",
+                         pri=Color::Cyan, sec=Color::White, thr=Color::BrightBlack, hi=Color::BrightCyan);
+                flush_styles();
                 std::process::exit(0);
             }
             _ => {}
         }
     }
+
+    if expect_num {
+        println!("Expected a number after -n or --num!");
+        std::process::exit(1);
+    }
+
     terminal_args
 }
 
@@ -107,7 +139,19 @@ fn main() {
     let facts = FAX_INCLUDE.split('\n').map(|s| s.to_string()).collect::<Vec<String>>();
 
     // get a random fact from the list of facts
-    let fact_num = thread_rng().gen_range(0..facts.len());
+    let fact_num = if let Some(n) = terminal_args.num {
+        if n > facts.len() {
+            println!("The number you entered is too large! There are only {} facts!", facts.len());
+            std::process::exit(1);
+        }
+        if n == 0 {
+            println!("The number you entered is too small! Facts start at 1!");
+            std::process::exit(1);
+        }
+        n - 1
+    } else {
+        thread_rng().gen_range(0..facts.len())
+    };
     let fact = facts[fact_num].clone();
 
     if terminal_args.raw {
